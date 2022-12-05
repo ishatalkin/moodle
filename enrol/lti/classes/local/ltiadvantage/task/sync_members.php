@@ -418,6 +418,10 @@ class sync_members extends scheduled_task {
 
                 // Enrol the user in the course.
                 if (helper::enrol_user($resource, $ltiuser->get_localid()) === helper::ENROLMENT_SUCCESSFUL) {
+                    $isinstructor = $this->member_is_instructor($member);
+                    $roleid = $isinstructor ? $resource->roleinstructor : $resource->rolelearner;
+                    role_assign($roleid, $ltiuser->get_localid(), $resource->contextid);
+
                     $enrolcount++;
                 }
             }
