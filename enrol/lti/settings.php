@@ -80,6 +80,14 @@ if ($ADMIN->fulltree) {
 }
 $ADMIN->add('enrolltifolder', $settings);
 
+// Add sync_members settings.
+$settings = new admin_settingpage('enrolsettingslti_syncmembers', "Users sync settings", 'moodle/site:config', $this->is_enabled() === false);
+if ($ADMIN->fulltree) {
+    $settings->add(new admin_setting_configcheckbox('enrol_lti/autoassignrole', get_string('autoassignrole', 'enrol_lti'),
+    get_string('autoassignrole_help', 'enrol_lti'), 0));
+}
+$ADMIN->add('enrolltifolder', $settings);
+
 // Now, create a tool registrations settings page.
 $settings = new admin_settingpage('enrolsettingslti_registrations', "Tool registration", 'moodle/site:config',
     $this->is_enabled() === false);
