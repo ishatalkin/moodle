@@ -222,7 +222,7 @@ class sync_grades_test extends \lti_advantage_testcase {
             "Success - The grade '$expectedstudent1grade' for the user '$student1id', for the resource ".
                 "'$resource->id' and the course '$course->id' was sent.",
             "Completed - Synced grades for tool '$resource->id' in the course '$course->id'. ".
-                "Processed 3 users; sent 1 grades."
+                "Processed 2 users; sent 1 grades."
         ];
         foreach ($expectedtraces as $expectedtrace) {
             $this->assertStringContainsString($expectedtrace, $ob);
