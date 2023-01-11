@@ -366,8 +366,6 @@ class sync_members extends scheduled_task {
     protected function sync_member_information(application_registration $appregistration, stdClass $resource,
             resource_link $resourcelink, array $members): array {
 
-        $autoassignrole = get_config('enrol_lti', 'autoassignrole');
-
         $enrolcount = 0;
         $userids = [];
 
@@ -420,12 +418,9 @@ class sync_members extends scheduled_task {
 
                 // Enrol the user in the course.
                 if (helper::enrol_user($resource, $ltiuser->get_localid()) === helper::ENROLMENT_SUCCESSFUL) {
-                    if($autoassignrole) {
-                        $isinstructor = $this->member_is_instructor($member);
-                        $roleid = $isinstructor ? $resource->roleinstructor : $resource->rolelearner;
-                        role_assign($roleid, $ltiuser->get_localid(), $resource->contextid);
-                    }
-
+                    $isinstructor = $this->member_is_instructor($member);
+                    $roleid = $isinstructor ? $resource->roleinstructor : $resource->rolelearner;
+                    role_assign($roleid, $ltiuser->get_localid(), $resource->contextid);
                     $enrolcount++;
                 }
             }
