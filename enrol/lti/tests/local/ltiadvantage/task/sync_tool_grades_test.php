@@ -209,6 +209,7 @@ class sync_tool_grades_test extends \lti_advantage_testcase {
 
         // Sync and verify that only student1's grade is sent.
         ob_start();
+        $task->set_custom_data($resource);
         $task->execute();
         $ob = ob_get_contents();
         ob_end_clean();
